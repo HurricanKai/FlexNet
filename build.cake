@@ -49,9 +49,17 @@ Task("testLibary")
 	 });
   });
 
+Task("clean").Does(() =>
+{
+	DeleteDirectory("./artifacts/", new DeleteDirectorySettings {
+		Recursive = true,
+		Force = true
+	});
+});
 
 
 Task("default")
+  .IsDependentOn("clean")
   .IsDependentOn("buildLibary"); // Tests not rn, use VS
 
 RunTarget(target);
