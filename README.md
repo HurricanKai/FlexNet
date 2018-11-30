@@ -37,18 +37,26 @@ ProtocolBuilder
     ).Build(new ExpressionDelegateBuilder());
 ```
 
-## API
-To extend FlexNet, you can write one of the following, depending on your needs:
+For more Information check the [Samples](./Samples/)
 
-|Name|Description|Offically Provided|
-|--|--|--|
-|INetworkAccessor|Defines how a Type should be Serialized|See DefaultAccessors
-|ILengthBehaviour|Defines how Length should be Serialized|DefaultDynamicInt32LengthBehaviour, ConstantLengthBehaviour in Core|
-|IDelegateBuilder|Defines how Read/Write Delegates are Build|ExpressionDelegateBuilder in FlexNet.Builders.ExpressionDelegateBuilder|
-|IIdHeader|Defines how Id should be Serialized|DefaultIdHeader|
-|IIdResolver|Defines how Packets should be mapped to Ids|DelegateIdResolver|
-|IClient|Defines a Client|TcpClient in SimpleTCP|
-|IServer|Defines a Server|TcpServer in SimpleTCP|
+## API
+To extend FlexNet, you can implement one of the following, depending on your needs:
+
+[INetworkAccessor](./FlexNet.Core/INetworkAccessor.cs) defining how a Type should be Serialized. see [DefaultAccessors](./FlexNet.Core.DefaultAccessors) for Samples & the Default Accessors.
+[ILengthBehaviour](./FlexNet.Core/ILengthBehaviour.cs) defining how Length should be Serialized. [This Folder](./FlexNet.Core/LengthBehaviours) Contains the Default Provided Length Behaviours
+[IIdHeader](./FlexNet.Core/IIdHeader.cs) defining how Id should be Serialized. [DefaultIdHeader](./FlexNet.Core/DefaultIdHeader.cs) will most of the Time be enough.
+[IIdMapper](./FlexNet.Core/IIdMapper.cs) defining how Ids should be Mapped to Packets, Offically only a Generic [DelegateIdMapper](./FlexNet.Core/DelegateIdMapper.cs) is Provided.
+[IClient](./FlexNet.Core/IClient.cs) defining Client Functionality.Currently [SimpleTCP](./Templates/SimpleTCP/TcpClient.cs) is the only Provided.
+[IServer](./FlexNet.Core/IServer.cs) defining Server Functionality. Currently [SimpleTCP](./Templates/SimpleTCP/TcpServer.cs) is the only Provided.
+[IDelegateBuilder](./FlexNet.Core/IDelegateBuilder.cs) defining how the Read and Write Delegates are Build. These are Shipped in theire own Packages, the Current Offical ones are:
+    [ExpressionDelegateBuilder](./Builders/ExpressionDelegateBuilder)
+
+
+## Building
+To Build this Project you will need to be able to run a Cake Build Script.
+Additionally .Net Core 2.1 will be needed.
+
+All Tests Target .Net Core 2.1, and all Libary parts target .Net Standard 2.0
 
 ## Contributing
 
@@ -58,7 +66,4 @@ PRs are very welcome!
 
 ## License
 
-[MIT © Richard McRichface.](../LICENSE)
-<!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyNzIyNDM4MTcsNDE2NDg3MTAzXX0=
--->
+[MIT © Kai Jellinghaus](./LICENSE)
