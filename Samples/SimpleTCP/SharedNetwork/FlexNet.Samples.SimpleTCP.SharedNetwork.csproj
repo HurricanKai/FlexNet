@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Builders\ExpressionDelegateBuilder\FlexNet.Builders.ExpressionDelegateBuilder.csproj" />
     <ProjectReference Include="..\..\..\Builders\FlexNet.Builders.ExpressionDelegateBuilder\FlexNet.Builders.ExpressionDelegateBuilder.csproj" />
     <ProjectReference Include="..\..\..\FlexNet.Core.DefaultAccessors\FlexNet.Core.DefaultAccessors.csproj" />
     <ProjectReference Include="..\..\..\FlexNet.Core\FlexNet.Core.csproj" />
