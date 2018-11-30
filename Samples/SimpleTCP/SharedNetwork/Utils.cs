@@ -5,6 +5,7 @@ using FlexNet.Core.LengthBehaviours;
 using FlexNet.Samples.SimpleTCP.SharedNetwork.Packets;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace FlexNet.Samples.SimpleTCP.SharedNetwork
@@ -15,7 +16,7 @@ namespace FlexNet.Samples.SimpleTCP.SharedNetwork
             => ProtocolBuilder
                 .Create<int>()
                 .LengthBehaviour(new DefaultDynamicInt32LengthBehaviour())
-                .IdHeader(new DefaultIdHeader())
+                .UseIds(new DefaultIdHeader(), new DelegateIdResolver((id, protocol) => protocol.Packets.First(x => ((int)x.Id) == (int)id)))
                 .RegisterDefaultAccessors()
                 .RegisterPacket((a) => a
                     .Id(0x00)

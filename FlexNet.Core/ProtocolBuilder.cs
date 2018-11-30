@@ -31,6 +31,7 @@ namespace FlexNet.Core
         private List<PacketDefinition> _packets;
         private Dictionary<Type, INetworkAccessor> _accessors;
         private IIdHeader _idHeader;
+        private IIdResolver _idResolver;
 
         internal ProtocolBuilder(Type idType)
         {
@@ -53,14 +54,10 @@ namespace FlexNet.Core
             return this;
         }
 
-        /// <summary>
-        /// Set the Id Header
-        /// </summary>
-        /// <param name="behaviour">The Header to use</param>
-        /// <returns>This Protocol Builder</returns>
-        public ProtocolBuilder IdHeader(IIdHeader header)
+        public ProtocolBuilder UseIds(IIdHeader header, IIdResolver resolver)
         {
             _idHeader = header;
+            _idResolver = resolver;
             return this;
         }
 
@@ -117,10 +114,13 @@ namespace FlexNet.Core
             v.IdType = _idType;
             v.LengthHeader = _lengthBehaviour;
             v.IdHeader = _idHeader;
+            v.IdResolver = _idResolver;
             if (v.LengthHeader != null)
                 v.LengthHeader.Protocol = v;
             if (v.IdHeader != null)
                 v.IdHeader.Protocol = v;
+            if (v.IdResolver != null)
+                v.IdResolver.Protocol = v;
             return v;
         }
     }

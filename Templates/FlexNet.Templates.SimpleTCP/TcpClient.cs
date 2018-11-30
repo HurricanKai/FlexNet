@@ -38,7 +38,7 @@ namespace FlexNet.Templates.SimpleTCP
         /// Create a Client using a Pre-accepted TcpClient
         /// </summary>
         /// <param name="client">the Pre-Accepted client.</param>
-        internal TcpClient(System.Net.Sockets.TcpClient client, ProtocolDefinition def)
+        internal TcpClient(System.Net.Sockets.TcpClient client, ProtocolDefinition def, PacketReceived packetReceived)
         {
             _cts = new CancellationTokenSource();
             _client = client;
@@ -47,6 +47,7 @@ namespace FlexNet.Templates.SimpleTCP
             _sendQueue = new Queue<PacketSendInfo>();
             _streamSemaphore = new SemaphoreSlim(1, 1);
             Protocol = def;
+            OnPacketReceived += packetReceived;
             SetupThreads();
         }
 
@@ -97,7 +98,7 @@ namespace FlexNet.Templates.SimpleTCP
         {
             while (!ct.IsCancellationRequested)
             {
-                if (_sendQueue.Count <= 0)
+                while (_sendQueue.Count <= 0)
                     await Task.Delay(10);
                 var info = _sendQueue.Dequeue();
                 using (var initDataStream = new MemoryStream())
@@ -109,11 +110,12 @@ namespace FlexNet.Templates.SimpleTCP
                         Protocol.LengthHeader.Write(lengthStream, (int)initDataStream.Position);
                         initDataStream.Position = 0;
                         await initDataStream.CopyToAsync(lengthStream);
+                        int totalLength = (int)lengthStream.Position;
                         lengthStream.Position = 0;
                         await _streamSemaphore.WaitAsync();
                         try
                         {
-                            await lengthStream.CopyToAsync(_stream);
+                            await lengthStream.CopyToAsync(_stream, totalLength, ct);
                         }
                         finally
                         {
@@ -128,36 +130,25 @@ namespace FlexNet.Templates.SimpleTCP
         {
             while (!ct.IsCancellationRequested)
             {
-                while (!_stream.DataAvailable)
+                while (_client.Available <= 0)
                     await Task.Delay(10);
                 int length;
+                byte[] data;
                 await _streamSemaphore.WaitAsync(ct);
                 try
                 {
                     length = Protocol.LengthHeader.Read(_stream);
+                    data = new byte[length];
+                    await _stream.ReadAsync(data, 0, length);
                 }
                 finally
                 {
                     _streamSemaphore.Release();
                 }
-                var bytes = new byte[length];
-                await _streamSemaphore.WaitAsync();
-                try
+                using (var stream = new MemoryStream(data))
                 {
-                    await _stream.ReadAsync(bytes, 0, length);
-                }
-                finally
-                {
-                    _streamSemaphore.Release();
-                }
-                using (var stream = new MemoryStream(bytes))
-                {
-
-                    var id = Protocol.IdHeader.Read(stream); // we can safely assume id is the right Type (idType)
-                    
-                    var packetDef = Protocol.Packets.FirstOrDefault(x => (dynamic)x.Id == (dynamic)id);
-                    if (packetDef.Id is null)
-                        throw new InvalidOperationException("Unknown Id received");
+                    var id = Protocol.IdHeader.Read(stream);
+                    var packetDef = Protocol.IdResolver.ResolveId(id);
                     var obj = packetDef.ReadDelegate(stream);
                     OnPacketReceived?.Invoke(obj, packetDef.Binding);
                 }

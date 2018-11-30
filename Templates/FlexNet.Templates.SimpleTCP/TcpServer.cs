@@ -37,11 +37,15 @@ namespace FlexNet.Templates.SimpleTCP
 
 
                 var newClient = await _listener.AcceptTcpClientAsync();
-                var client = new TcpClient(newClient, this.Protocol);
-                client.OnPacketReceived += OnPacketReceived;
+                var client = new TcpClient(newClient, this.Protocol, this.Client_OnPacketReceived);
                 OnClientConnected?.Invoke(client);
                 _clients.Add(client);
             }
+        }
+
+        private void Client_OnPacketReceived(Object data, Type packetType)
+        {
+            OnPacketReceived?.Invoke(data, packetType);
         }
 
         public void Dispose()
