@@ -58,4 +58,4 @@ PRs are very welcome!
 
 ## License
 
-[MIT © Richard McRichface.](./LICENSE)
+[MIT © Kai Jellinghaus](./LICENSE)
