@@ -45,7 +45,7 @@ To extend FlexNet, you can implement one of the following, depending on your nee
 [INetworkAccessor](./FlexNet.Core/INetworkAccessor.cs) defining how a Type should be Serialized. see [DefaultAccessors](./FlexNet.Core.DefaultAccessors) for Samples & the Default Accessors.
 [ILengthBehaviour](./FlexNet.Core/ILengthBehaviour.cs) defining how Length should be Serialized. [This Folder](./FlexNet.Core/LengthBehaviours) Contains the Default Provided Length Behaviours
 [IIdHeader](./FlexNet.Core/IIdHeader.cs) defining how Id should be Serialized. [DefaultIdHeader](./FlexNet.Core/DefaultIdHeader.cs) will most of the Time be enough.
-[IIdResolver](./FlexNet.Core/IIdResolver.cs) defining how Ids should be Mapped to Packets, Offically only a Generic [DelegateIdResolver](./FlexNet.Core/DelegateIdResolver.cs) is Provided.
+[IIdMapper](./FlexNet.Core/IIdMapper.cs) defining how Ids should be Mapped to Packets, Offically only a Generic [DelegateIdResolver](./FlexNet.Core/DelegateIdResolver.cs) is Provided.
 [IClient](./FlexNet.Core/IClient.cs) defining Client Functionality.Currently [SimpleTCP](./Templates/SimpleTCP/TcpClient.cs) is the only Provided.
 [IServer](./FlexNet.Core/IServer.cs) defining Server Functionality. Currently [SimpleTCP](./Templates/SimpleTCP/TcpServer.cs) is the only Provided.
 [IDelegateBuilder](./FlexNet.Core/IDelegateBuilder.cs) defining how the Read and Write Delegates are Build. These are Shipped in theire own Packages, the Current Offical ones are:
