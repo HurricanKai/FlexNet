@@ -42,9 +42,12 @@ To extend FlexNet, you can write one of the following, depending on your needs:
 
 |Name|Description|Offically Provided|
 |--|--|--|
-|ILengthBehaviour|Defines how Servers should learn about Length|DefaultDynamicInt32LengthBehaviour, ConstantLengthBehaviour in Core|
+|ILengthBehaviour|Defines how Length should be Serialized|DefaultDynamicInt32LengthBehaviour, ConstantLengthBehaviour in Core|
 |IDelegateBuilder|Defines how Read/Write Delegates are Build|
-|IIdHeader|Defines how Id should be Read|DefaultIdHeader|
+|IIdHeader|Defines how Id should be Serialized|DefaultIdHeader|
+|IIdResolver|Defines how Packets should be mapped to Ids|DelegateIdResolver|
+|ILengthHeader|Defines how Length should be Serialized|
+|
 
 ## More optional sections
 
@@ -62,5 +65,5 @@ Small note: If editing the Readme, please conform to the [standard-readme](https
 
 [MIT © Richard McRichface.](../LICENSE)
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTc3NjU5NjY1Miw0MTY0ODcxMDNdfQ==
+eyJoaXN0b3J5IjpbMTExNTk1Mjk4OSw0MTY0ODcxMDNdfQ==
 -->
