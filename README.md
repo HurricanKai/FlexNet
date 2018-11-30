@@ -48,23 +48,17 @@ To extend FlexNet, you can write one of the following, depending on your needs:
 |IIdHeader|Defines how Id should be Serialized|DefaultIdHeader|
 |IIdResolver|Defines how Packets should be mapped to Ids|DelegateIdResolver|
 |IClient|Defines a Client|TcpClient in SimpleTCP|
-|IServer|
-
-## More optional sections
+|IServer|Defines a Server|TcpServer in SimpleTCP|
 
 ## Contributing
 
 See [the contributing file](CONTRIBUTING.md)!
 
-PRs accepted.
-
-Small note: If editing the Readme, please conform to the [standard-readme](https://github.com/RichardLitt/standard-readme) specification.
-
-### Any optional sections
+PRs are very welcome!
 
 ## License
 
 [MIT © Richard McRichface.](../LICENSE)
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTI1NzM3NDYxNyw0MTY0ODcxMDNdfQ==
+eyJoaXN0b3J5IjpbLTEyNzIyNDM4MTcsNDE2NDg3MTAzXX0=
 -->
