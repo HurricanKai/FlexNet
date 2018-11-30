@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Builders\FlexNet.Builders.ExpressionDelegateBuilder\FlexNet.Builders.ExpressionDelegateBuilder.csproj" />
+    <ProjectReference Include="..\..\..\FlexNet.Core.DefaultAccessors\FlexNet.Core.DefaultAccessors.csproj" />
+    <ProjectReference Include="..\..\..\FlexNet.Core\FlexNet.Core.csproj" />
+    <ProjectReference Include="..\..\..\Templates\FlexNet.Templates.SimpleTCP\FlexNet.Templates.SimpleTCP.csproj" />
+  </ItemGroup>
+
+</Project>
