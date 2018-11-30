@@ -12,7 +12,7 @@ These are some Simple guidelines, to make your Code more uniform, and easy to Re
 - We intend 4 Spaces. 
 - private Fields are Prefixed with an Underscore (`_`)
 - We use camelCase for private Fields, and PascalCase for Classes, Methods, Properties.
-- 
+- Else try to 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5MjQxODQxMjFdfQ==
+eyJoaXN0b3J5IjpbLTEzODcxODE5MzhdfQ==
 -->
