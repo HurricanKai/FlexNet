@@ -37,6 +37,8 @@ ProtocolBuilder
     ).Build(new ExpressionDelegateBuilder());
 ```
 
+For more Information check the [Samples](./Samples/)
+
 ## API
 To extend FlexNet, you can write one of the following, depending on your needs:
 
