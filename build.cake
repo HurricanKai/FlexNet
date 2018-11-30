@@ -49,6 +49,15 @@ Task("testLibary")
 	 });
   });
 
+Task("PublishToNuGet").Does(() =>
+{
+	var nugetFiles = GetFiles("./*.nupkg");
+	NuGetPush(nugetFiles, new NuGetPushSettings
+	{
+		ApiKey = EnvironmentVariable("NuGetOrgApiKey")
+	});
+});
+
 Task("clean").Does(() =>
 {
 	DeleteDirectory("./artifacts/", new DeleteDirectorySettings {

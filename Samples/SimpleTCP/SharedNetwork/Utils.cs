@@ -16,7 +16,9 @@ namespace FlexNet.Samples.SimpleTCP.SharedNetwork
             => ProtocolBuilder
                 .Create<int>()
                 .LengthBehaviour(new DefaultDynamicInt32LengthBehaviour())
-                .UseIds(new DefaultIdHeader(), new DelegateIdResolver((id, protocol) => protocol.Packets.First(x => ((int)x.Id) == (int)id)))
+                .UseIds(new DefaultIdHeader(), new DelegateIdMapper((id, protocol)
+                    => protocol.Packets.First(x => ((int)x.Id) == (int)id),
+                    (def, protocol) => def.Id))
                 .RegisterDefaultAccessors()
                 .RegisterPacket((a) => a
                     .Id(0x00)

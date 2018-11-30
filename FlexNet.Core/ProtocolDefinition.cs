@@ -9,7 +9,7 @@ namespace FlexNet.Core
         public Type IdType { get; internal set; }
         public ILengthHeader LengthHeader { get; internal set; }
         public IIdHeader IdHeader { get; internal set; }
-        public IIdResolver IdResolver { get; internal set; }
+        public IIdMapper IdResolver { get; internal set; }
         internal Dictionary<Type, INetworkAccessor> Accessors { get; set; }
 
         public T CreateServer<T>() where T : IServer, new()

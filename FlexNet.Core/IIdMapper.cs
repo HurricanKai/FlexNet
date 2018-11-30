@@ -4,9 +4,10 @@ using System.Text;
 
 namespace FlexNet.Core
 {
-    public interface IIdResolver
+    public interface IIdMapper
     {
         ProtocolDefinition Protocol { set; }
-        PacketDefinition ResolveId(object id);
+        PacketDefinition MapIdToPacket(object id);
+        object MapPacketToId(PacketDefinition def);
     }
 }

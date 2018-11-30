@@ -31,7 +31,7 @@ namespace FlexNet.Core
         private List<PacketDefinition> _packets;
         private Dictionary<Type, INetworkAccessor> _accessors;
         private IIdHeader _idHeader;
-        private IIdResolver _idResolver;
+        private IIdMapper _idResolver;
 
         internal ProtocolBuilder(Type idType)
         {
@@ -54,7 +54,7 @@ namespace FlexNet.Core
             return this;
         }
 
-        public ProtocolBuilder UseIds(IIdHeader header, IIdResolver resolver)
+        public ProtocolBuilder UseIds(IIdHeader header, IIdMapper resolver)
         {
             _idHeader = header;
             _idResolver = resolver;
