@@ -58,7 +58,4 @@ PRs are very welcome!
 
 ## License
 
-[MIT © Richard McRichface.](../LICENSE)
-<!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyNzIyNDM4MTcsNDE2NDg3MTAzXX0=
--->
+[MIT © Richard McRichface.](./LICENSE)
