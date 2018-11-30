@@ -1,5 +1,3 @@
-
-
 # FlexNet
 
 > A Networking Libary that is simple to use, but Flexible by Extensibility
