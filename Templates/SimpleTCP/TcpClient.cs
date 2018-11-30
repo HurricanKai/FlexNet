@@ -103,7 +103,7 @@ namespace FlexNet.Templates.SimpleTCP
                 var info = _sendQueue.Dequeue();
                 using (var initDataStream = new MemoryStream())
                 {
-                    Protocol.IdHeader.Write(initDataStream, info.def.Id);
+                    Protocol.IdHeader.Write(initDataStream, Protocol.IdResolver.MapPacketToId(info.def));
                     info.def.WriteDelegate(initDataStream, info.obj);
                     using (var lengthStream = new MemoryStream())
                     {
@@ -148,7 +148,7 @@ namespace FlexNet.Templates.SimpleTCP
                 using (var stream = new MemoryStream(data))
                 {
                     var id = Protocol.IdHeader.Read(stream);
-                    var packetDef = Protocol.IdResolver.ResolveId(id);
+                    var packetDef = Protocol.IdResolver.MapIdToPacket(id);
                     var obj = packetDef.ReadDelegate(stream);
                     OnPacketReceived?.Invoke(obj, packetDef.Binding);
                 }
