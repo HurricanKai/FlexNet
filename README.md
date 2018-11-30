@@ -50,6 +50,12 @@ To extend FlexNet, you can write one of the following, depending on your needs:
 |IClient|Defines a Client|TcpClient in SimpleTCP|
 |IServer|Defines a Server|TcpServer in SimpleTCP|
 
+## Building
+To Build this Project you will need to be able to run a Cake Build Script.
+Additionally .Net Core 2.1 will be needed.
+
+All Tests Target .Net Core 2.1, and all Libary parts target .Net Standard 2.0
+
 ## Contributing
 
 See [the contributing file](CONTRIBUTING.md)!
