@@ -1,12 +1,11 @@
 
+
 # FlexNet
 
 > A Networking Libary that is simple to use, but Flexible by Extensibility
 
 ## Table of Contents
 
-- [Security](#security)
-- [Background](#background)
 - [Install](#install)
 - [Usage](#usage)
 - [API](#api)
@@ -14,24 +13,38 @@
 - [License](#license)
 
 ## Install
-
-This module depends upon a knowledge of [Markdown]().
+Install using NuGet:
 
 ```
+// TODO: Command to install
 ```
-
-### Any optional sections
 
 ## Usage
-
+To Get Started, a Protocol has to be defined.
+This is done using the ProtocolBuilder, the Below Code Creates a new ProtocolDefinition, using int as IdType, and Registers one Packet, `SingleByteTransferPacket`, using Id 0x00.
+```c#
+ProtocolBuilder
+    .Create<int>()
+    .LengthBehaviour(new DefaultDynamicInt32LengthBehaviour())
+    .UseIds(new DefaultIdHeader(), 
+    new DelegateIdResolver((id, protocol) 
+        => protocol.Packets.First(x => ((int)x.Id) == (int)id)))
+    .RegisterDefaultAccessors()
+    .RegisterPacket((packetBuilder) => packetBuilder
+        .Id(0x00)
+        .BindingType<SingleByteTransferPacket>()
+        .BindField(nameof(SingleByteTransferPacket.Data))
+    ).Build(new ExpressionDelegateBuilder());
 ```
-```
-
-### Any optional sections
 
 ## API
+To extend FlexNet, you can write one of the following, depending on your needs:
 
-### Any optional sections
+|Name|Description|Offically Provided|
+|--|--|--|
+|ILengthBehaviour|Defines how Servers should learn about Length|DefaultDynamicInt32LengthBehaviour, ConstantLengthBehaviour in Core|
+|IDelegateBuilder|Defines how Read/Write Delegates are Build|
+|IIdHeader|Defines how Id should be Read|DefaultIdHeader|
 
 ## More optional sections
 
@@ -47,7 +60,7 @@ Small note: If editing the Readme, please conform to the [standard-readme](https
 
 ## License
 
-[MIT © Kai Jellinghaus](../LICENSE)
+[MIT © Richard McRichface.](../LICENSE)
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDE2NDg3MTAzXX0=
+eyJoaXN0b3J5IjpbMTc3NjU5NjY1Miw0MTY0ODcxMDNdfQ==
 -->
