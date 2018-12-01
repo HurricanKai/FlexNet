@@ -6,10 +6,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Builders\ExpressionDelegateBuilder\FlexNet.Builders.ExpressionDelegateBuilder.csproj" />
-    <ProjectReference Include="..\..\..\Builders\FlexNet.Builders.ExpressionDelegateBuilder\FlexNet.Builders.ExpressionDelegateBuilder.csproj" />
     <ProjectReference Include="..\..\..\FlexNet.Core.DefaultAccessors\FlexNet.Core.DefaultAccessors.csproj" />
     <ProjectReference Include="..\..\..\FlexNet.Core\FlexNet.Core.csproj" />
-    <ProjectReference Include="..\..\..\Templates\FlexNet.Templates.SimpleTCP\FlexNet.Templates.SimpleTCP.csproj" />
+    <ProjectReference Include="..\..\..\Templates\SimpleTCP\FlexNet.Templates.SimpleTCP.csproj" />
   </ItemGroup>
 
 </Project>

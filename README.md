@@ -2,6 +2,8 @@
 
 > A Networking Libary that is simple to use, but Flexible by Extensibility
 
+[![Build status](https://ci.appveyor.com/api/projects/status/mm9a0a7yxhuw7t0n/branch/master?svg=true)](https://ci.appveyor.com/project/HurricanKai/flexnet/branch/master)
+
 ## Table of Contents
 
 - [Install](#install)

@@ -1,74 +1,74 @@
-#addin "Cake.Incubator"
-#tool "nuget:?package=NUnit.ConsoleRunner"
+#tool "nuget:?package=GitReleaseNotes"
+#tool "nuget:?package=GitVersion.CommandLine"
+#addin "nuget:?package=Cake.Incubator"
 
-var target = Argument("target", "default");
-var configuration = Argument("configuration", "release");
+var target = Argument("target", "Default");
+var outputDir = "./artifacts/";
 
-var solution = File("./FlexNet.sln");
+Task("Clean")
+    .Does(() => {
+        if (DirectoryExists(outputDir))
+        {
+            DeleteDirectory(outputDir, recursive:true);
+        }
+    });
 
-Task("buildLibary").Does(() =>
-{
-     var settings = new DotNetCoreBuildSettings
-     {
-         Framework = "netstandard2.0",
-         Configuration = "Release",
-         OutputDirectory = "./artifacts/"
-     };
+Task("Restore")
+    .Does(() => {
+        DotNetCoreRestore(".");
+    });
 
-	 DotNetCoreBuild("./FlexNet.Core/FlexNet.Core.csproj", settings);
-	 DotNetCoreBuild("./FlexNet.Core.DefaultAccessors/FlexNet.Core.DefaultAccessors.csproj", settings);
-	 DotNetCoreBuild("./Templates/SimpleTCP/FlexNet.Templates.SimpleTCP.csproj", settings);
-	 DotNetCoreBuild("./Builders/ExpressionDelegateBuilder/FlexNet.Builders.ExpressionDelegateBuilder.csproj", settings);
-});
+GitVersion versionInfo = null;
+Task("Version")
+    .Does(() => {
+        GitVersion(new GitVersionSettings{
+            UpdateAssemblyInfo = true,
+            OutputType = GitVersionOutput.BuildServer
+        });
+        versionInfo = GitVersion(new GitVersionSettings{ OutputType = GitVersionOutput.Json });        
+    });
 
-Task("buildTests")
-  .IsDependentOn("buildLibary")
-  .Does(() =>
-  {
-    var settings = new DotNetCoreBuildSettings
-	{
-		Framework = "netcoreapp2.1",
-		Configuration = "Release",
-		OutputDirectory = "./artifacts/"
-	};
+Task("Build")
+    .IsDependentOn("Clean")
+    .IsDependentOn("Version")
+    .IsDependentOn("Restore")
+    .Does(() => {
+        DotNetCoreBuild("./FlexNet.Core/FlexNet.Core.csproj");
+		DotNetCoreBuild("./FlexNet.Core.DefaultAccessors/FlexNet.Core.DefaultAccessors.csproj");
+		DotNetCoreBuild("./Templates/SimpleTCP/FlexNet.Templates.SimpleTCP.csproj");
+		DotNetCoreBuild("./Builders/ExpressionDelegateBuilder/FlexNet.Builders.ExpressionDelegateBuilder.csproj");
+    });
 
-	 DotNetCoreBuild("./FlexNet.Core.Tests/FlexNet.Core.Tests.csproj", settings);
-	 DotNetCoreBuild("./FlexNet.Core.DefaultAccessors.Tests/FlexNet.Core.DefaultAccessors.Tests.csproj", settings);
-	 DotNetCoreBuild("./Builders/ExpressionDelegateBuilder.Tests/FlexNet.Builders.ExpressionDelegateBuilder.Tests.csproj", settings);
-  });
+Task("Test")
+    .IsDependentOn("Build")
+    .Does(() => {
+        DotNetCoreTest("./FlexNet.Core.Tests/FlexNet.Core.Tests.csproj");
+		DotNetCoreTest("./Builders/ExpressionDelegateBuilder.Tests/FlexNet.Builders.ExpressionDelegateBuilder.Tests.csproj");
+    });
 
-Task("testLibary")
-  .IsDependentOn("buildLibary")
-  .IsDependentOn("buildTests")
-  .Does(() =>
-  {
-     NUnit3(new [] { 
-		"./artifacts/FlexNet.Core.Tests.dll",
-		"./artifacts/FlexNet.Core.DefaultAccessors.Tests.dll",
-		"./artifacts/FlexNet.Builders.ExpressionDelegateBuilder.Tests.dll",
-	 });
-  });
+Task("Package")
+    .IsDependentOn("Test")
+    .Does(() => {
+        var settings = new DotNetCorePackSettings
+        {
+            ArgumentCustomization = args=> args.Append(" --include-symbols /p:PackageVersion=" + versionInfo.NuGetVersion),
+            OutputDirectory = outputDir,
+            NoBuild = true
+        };
 
-Task("PublishToNuGet").Does(() =>
-{
-	var nugetFiles = GetFiles("./*.nupkg");
-	NuGetPush(nugetFiles, new NuGetPushSettings
-	{
-		ApiKey = EnvironmentVariable("NuGetOrgApiKey")
-	});
-});
+        DotNetCorePack("./FlexNet.Core/FlexNet.Core.csproj", settings);
+		DotNetCorePack("./FlexNet.Core.DefaultAccessors/FlexNet.Core.DefaultAccessors.csproj", settings);
+		DotNetCorePack("./Templates/SimpleTCP/FlexNet.Templates.SimpleTCP.csproj", settings);
+		DotNetCorePack("./Builders/ExpressionDelegateBuilder/FlexNet.Builders.ExpressionDelegateBuilder.csproj", settings);
 
-Task("clean").Does(() =>
-{
-	DeleteDirectory("./artifacts/", new DeleteDirectorySettings {
-		Recursive = true,
-		Force = true
-	});
-});
+        if (AppVeyor.IsRunningOnAppVeyor)
+        {
+            foreach (var file in GetFiles(outputDir + "**/*"))
+                AppVeyor.UploadArtifact(file.FullPath);
+        }
+    });
 
-
-Task("default")
-  .IsDependentOn("clean")
-  .IsDependentOn("buildLibary"); // Tests not rn, use VS
+Task("Default")
+    .IsDependentOn("Package");
 
 RunTarget(target);

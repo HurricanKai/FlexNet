@@ -15,7 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\FlexNet.Core.DefaultAccessors\FlexNet.Core.DefaultAccessors.csproj" />
     <ProjectReference Include="..\..\FlexNet.Core\FlexNet.Core.csproj" />
-    <ProjectReference Include="..\FlexNet.Builders.ExpressionDelegateBuilder\FlexNet.Builders.ExpressionDelegateBuilder.csproj" />
+    <ProjectReference Include="..\ExpressionDelegateBuilder\FlexNet.Builders.ExpressionDelegateBuilder.csproj" />
   </ItemGroup>
 
 </Project>

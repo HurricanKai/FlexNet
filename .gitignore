@@ -1,10 +1,11 @@
 # Cake
 ./tools/
 
-#artifacts
+# Publish Results
 ./artifacts/
+./Publish/
 
-#Tests
+# Tests
 ./TestResults/
 ./TestResult.xml
 
