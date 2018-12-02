@@ -73,9 +73,9 @@ namespace FlexNet.Templates.SimpleTCP
             SetupThreads();
         }
 
-        public void SendMessage<T>(T obj) => SendMessage(typeof(T), obj);
+        public void SendPacket<T>(T obj) => SendPacket(typeof(T), obj);
 
-        public void SendMessage(Type t, object obj)
+        public void SendPacket(Type t, object obj)
         {
             var def = Protocol.Packets.FirstOrDefault(x => x.Binding == t);
             if (def.Id == null)

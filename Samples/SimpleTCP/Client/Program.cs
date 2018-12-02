@@ -27,7 +27,7 @@ namespace FlexNet.Samples.SimpleTCP.Client
                     var vals = new byte[1];
                     rnd.NextBytes(vals);
                     var val = vals[0];
-                    client.SendMessage<SingleByteTransferPacket>(new SingleByteTransferPacket()
+                    client.SendPacket<SingleByteTransferPacket>(new SingleByteTransferPacket()
                     {
                         Data = val
                     });

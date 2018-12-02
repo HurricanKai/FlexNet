@@ -18,6 +18,7 @@ namespace FlexNet.Core
         public DelegateIdMapper(Func<object, ProtocolDefinition, PacketDefinition> idToPacket, Func<PacketDefinition, ProtocolDefinition, Object> packetToId)
         {
             _idToPacket = idToPacket;
+            _packetToId = packetToId;
         }
     }
 }

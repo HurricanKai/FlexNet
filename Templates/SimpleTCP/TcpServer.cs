@@ -14,9 +14,9 @@ namespace FlexNet.Templates.SimpleTCP
         public event TcpClient.PacketReceived OnPacketReceived;
         public event ClientConnected OnClientConnected;
         public delegate void ClientConnected(TcpClient client);
+        public List<TcpClient> Clients { get; private set; } = new List<TcpClient>();
         public ProtocolDefinition Protocol { private get; set; }
         private TcpListener _listener;
-        private List<TcpClient> _clients = new List<TcpClient>();
         private CancellationTokenSource _cts;
         private Task _listenerTask;
 
@@ -39,7 +39,7 @@ namespace FlexNet.Templates.SimpleTCP
                 var newClient = await _listener.AcceptTcpClientAsync();
                 var client = new TcpClient(newClient, this.Protocol, this.Client_OnPacketReceived);
                 OnClientConnected?.Invoke(client);
-                _clients.Add(client);
+                Clients.Add(client);
             }
         }
 
@@ -53,9 +53,9 @@ namespace FlexNet.Templates.SimpleTCP
             _listener.Stop();
             _cts.Cancel();
             _cts.Dispose();
-            foreach (var v in _clients)
+            foreach (var v in Clients)
                 v.Dispose();
-            _clients.Clear();
+            Clients.Clear();
         }
     }
 }
