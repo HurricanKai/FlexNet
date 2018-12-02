@@ -22,7 +22,7 @@ namespace FlexNet.Samples.ChatClient.Common
                 .RegisterAccessor<Color, ColorAccessor>()
                 .LengthBehaviour(new DefaultDynamicInt32LengthBehaviour())
                 .UseIds(new DefaultIdHeader(), new DelegateIdMapper(
-                    (id, def) => def.Packets.First(x => ((int)x.Id) == (int)id),
+                    (id, def) => def.Packets.First(packet => ((int)packet.Id) == (int)id),
                     (packet, def) => packet.Id))
                 .RegisterPacket((builder) => builder
                     .Id(0x00)

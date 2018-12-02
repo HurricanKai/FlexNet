@@ -5,9 +5,9 @@ using System.Net;
 
 namespace FlexNet.Samples.ChatClient.Client
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.Title = "Chat Client";
             Console.WriteLine("Chat Client Starting...");
@@ -43,15 +43,15 @@ namespace FlexNet.Samples.ChatClient.Client
             Console.SetCursorPosition(0, Console.CursorTop);
             if (packetType == typeof(MessagePacket))
             {
-                var v = (MessagePacket)data;
-                Console.WriteLine($"[{v.CreationTime}] {v.Author} | {v.Message}");
+                var messagePacket = (MessagePacket)data;
+                Console.WriteLine($"[{messagePacket.CreationTime}] {messagePacket.Author} | {messagePacket.Message}");
             }
 
             if (packetType == typeof(BroadcastPacket))
             {
-                var v = (BroadcastPacket)data;
+                var broadcastPacket = (BroadcastPacket)data;
                 Console.WriteLine();
-                Console.WriteLine(v.Content);
+                Console.WriteLine(broadcastPacket.Content);
                 Console.WriteLine();
             }
         }

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace FlexNet.Samples.ChatClient.Server
 {
-    class Program
+    public class Program
     {
         private static TcpServer server;
-        static async Task Main(string[] args)
+        private static async Task Main(string[] args)
         {
             Console.Title = "Chat Server";
             Console.WriteLine("Chat Server Starting");
@@ -21,10 +21,7 @@ namespace FlexNet.Samples.ChatClient.Server
                 server.Start(new IPEndPoint(IPAddress.Any, 1234));
                 Console.WriteLine("Clients can now Connect");
 
-                while (true)
-                {
-                    await Task.Delay(1000);
-                }
+                await Task.Delay(-1);
             }
         }
 

@@ -18,23 +18,23 @@ namespace FlexNet.Samples.ChatClient.Common
 
         private byte ReadByte(Stream stream)
         {
-            var v = stream.ReadByte();
-            if (v == -1)
+            var @byte = stream.ReadByte();
+            if (@byte == -1)
                 throw new EndOfStreamException();
-            return (byte)v;
+            return (byte)@byte;
         }
 
         public void Write(Stream stream, Object obj)
         {
-            var v = (Color)obj;
-            WriteByte(stream, v.R);
-            WriteByte(stream, v.G);
-            WriteByte(stream, v.B);
+            var color = (Color)obj;
+            WriteByte(stream, color.R);
+            WriteByte(stream, color.G);
+            WriteByte(stream, color.B);
         }
 
-        private void WriteByte(Stream stream, byte b)
+        private void WriteByte(Stream stream, byte @byte)
         {
-            stream.WriteByte(b);
+            stream.WriteByte(@byte);
         }
     }
 }

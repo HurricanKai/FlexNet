@@ -17,8 +17,8 @@ namespace FlexNet.Samples.ChatClient.Common
 
         public void Write(Stream stream, Object obj)
         {
-            var v = (DateTime)obj;
-            var bytes = BitConverter.GetBytes(v.ToBinary());
+            var data = (DateTime)obj;
+            var bytes = BitConverter.GetBytes(data.ToBinary());
             stream.Write(bytes, 0, bytes.Length);
         }
     }
