@@ -21,7 +21,8 @@ Install using NuGet:
 
 ## Usage
 To get started, a `Protocol` has to be defined.
-This is done by using the `ProtocolBuilder`, the below code creates a new `ProtocolDefinition`, using `int` as the `IdType`, and registers one `Packet`, `SingleByteTransferPacket`, with `0x00` as the ID.
+This is done using the `ProtocolBuilder`.
+The below code creates a new `ProtocolDefinition`, using `int` as the `IdType`, and registers one `Packet`, `SingleByteTransferPacket`, with `0x00` as the ID.
 ```c#
 ProtocolBuilder
     .Create<int>()
@@ -43,7 +44,7 @@ For more information, check the [Samples](./Samples/)
 To extend FlexNet, you can implement one of the following, depending on your needs:
 
 Interface | Defines | Default Implementation
----
+:--- | :--- | ---:
 [INetworkAccessor](./FlexNet.Core/INetworkAccessor.cs) | How a `Type` should be serialized. | [DefaultAccessors](./FlexNet.Core.DefaultAccessors)
 [ILengthBehaviour](./FlexNet.Core/ILengthBehaviour.cs) | How `Length` should be serialized. | [This Folder](./FlexNet.Core/LengthBehaviours)
 [IIdHeader](./FlexNet.Core/IIdHeader.cs) | How an `Id` should be serialized. | [DefaultIdHeader](./FlexNet.Core/DefaultIdHeader.cs)
