@@ -6,18 +6,22 @@
 
 ## Table of Contents
 
-- [Install](#install)
+- [Downloads](#downloads)
 - [Usage](#usage)
 - [API](#api)
 - [Contributing](#contributing)
 - [License](#license)
 
-## Install
-Install using NuGet:
+## Downloads
+All Packets are Aviable on Nuget, or in the [Release Section](https://github.com/HurricanKai/FlexNet/releases)
+Below is a Table of all Nuget Packets
 
-```
-// TODO: Command to install
-```
+Name | Package Manager
+:--- | :---
+[Core](https://www.nuget.org/packages/FlexNet.Core/) | `Install-Package FlexNet.Core`
+[Default Accessors](https://www.nuget.org/packages/FlexNet.Core.DefaultAccessors/) | `Install-Package FlexNet.Core.DefaultAccessors`
+[SimpleTCP Template](https://www.nuget.org/packages/FlexNet.Templates.SimpleTCP/) | `Install-Package FlexNet.Templates.SimpleTCP`
+[ExpressionDelegate Builder](https://www.nuget.org/packages/FlexNet.Builders.ExpressionDelegateBuilder/) | `Install-Package FlexNet.Builders.ExpressionDelegateBuilder`
 
 ## Usage
 To get started, a `Protocol` has to be defined.
