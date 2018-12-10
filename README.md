@@ -20,8 +20,8 @@ Install using NuGet:
 ```
 
 ## Usage
-To Get Started, a Protocol has to be defined.
-This is done using the ProtocolBuilder, the Below Code Creates a new ProtocolDefinition, using int as IdType, and Registers one Packet, `SingleByteTransferPacket`, using Id 0x00.
+To get started, a `Protocol` has to be defined.
+This is done by using the `ProtocolBuilder`, the below code creates a new `ProtocolDefinition`, using `int` as the `IdType`, and registers one `Packet`, `SingleByteTransferPacket`, with `0x00` as the ID.
 ```c#
 ProtocolBuilder
     .Create<int>()
@@ -37,26 +37,26 @@ ProtocolBuilder
     ).Build(new ExpressionDelegateBuilder());
 ```
 
-For more Information check the [Samples](./Samples/)
+For more information, check the [Samples](./Samples/)
 
 ## API
 To extend FlexNet, you can implement one of the following, depending on your needs:
 
-[INetworkAccessor](./FlexNet.Core/INetworkAccessor.cs) defining how a Type should be Serialized. see [DefaultAccessors](./FlexNet.Core.DefaultAccessors) for Samples & the Default Accessors.
-[ILengthBehaviour](./FlexNet.Core/ILengthBehaviour.cs) defining how Length should be Serialized. [This Folder](./FlexNet.Core/LengthBehaviours) Contains the Default Provided Length Behaviours
-[IIdHeader](./FlexNet.Core/IIdHeader.cs) defining how Id should be Serialized. [DefaultIdHeader](./FlexNet.Core/DefaultIdHeader.cs) will most of the Time be enough.
-[IIdMapper](./FlexNet.Core/IIdMapper.cs) defining how Ids should be Mapped to Packets, Offically only a Generic [DelegateIdMapper](./FlexNet.Core/DelegateIdMapper.cs) is Provided.
-[IClient](./FlexNet.Core/IClient.cs) defining Client Functionality.Currently [SimpleTCP](./Templates/SimpleTCP/TcpClient.cs) is the only Provided.
-[IServer](./FlexNet.Core/IServer.cs) defining Server Functionality. Currently [SimpleTCP](./Templates/SimpleTCP/TcpServer.cs) is the only Provided.
-[IDelegateBuilder](./FlexNet.Core/IDelegateBuilder.cs) defining how the Read and Write Delegates are Build. These are Shipped in theire own Packages, the Current Offical ones are:
-    [ExpressionDelegateBuilder](./Builders/ExpressionDelegateBuilder)
-
+Interface | Defines | Default Implementation
+---
+[INetworkAccessor](./FlexNet.Core/INetworkAccessor.cs) | How a `Type` should be serialized. | [DefaultAccessors](./FlexNet.Core.DefaultAccessors)
+[ILengthBehaviour](./FlexNet.Core/ILengthBehaviour.cs) | How `Length` should be serialized. | [This Folder](./FlexNet.Core/LengthBehaviours)
+[IIdHeader](./FlexNet.Core/IIdHeader.cs) | How an `Id` should be serialized. | [DefaultIdHeader](./FlexNet.Core/DefaultIdHeader.cs)
+[IIdMapper](./FlexNet.Core/IIdMapper.cs) | How `Id`s should be mapped to `Packet`s | [DelegateIdMapper](./FlexNet.Core/DelegateIdMapper.cs)
+[IClient](./FlexNet.Core/IClient.cs) | Client Functionality | [SimpleTCP Client](./Templates/SimpleTCP/TcpClient.cs)
+[IServer](./FlexNet.Core/IServer.cs) | Server Functionality. | [SimpleTCP Server](./Templates/SimpleTCP/TcpServer.cs)
+[IDelegateBuilder](./FlexNet.Core/IDelegateBuilder.cs) | How the read/write delegates are built. | [ExpressionDelegateBuilder](./Builders/ExpressionDelegateBuilder)
 
 ## Building
-To Build this Project you will need to be able to run a Cake Build Script.
-Additionally .Net Core 2.1 will be needed.
+To build this project, you will need to be able to run a `Cake Build Script`.
+Additionally, `.NET Core 2.1` will be needed.
 
-All Tests Target .Net Core 2.1, and all Libary parts target .Net Standard 2.0
+All unit tests target `.NET Core 2.1`, and `FlexNet` targets `.NET Standard 2.0`
 
 ## Contributing
 
