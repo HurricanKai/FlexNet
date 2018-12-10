@@ -7,9 +7,9 @@ Include unit tests with your commits.
 Submit a PR, and list the changes that you've made.
 
 ## Coding conventions
-These are some simple guidelines, to make your code more uniform, and easy to read:
+These guidelines intend to make your code more uniform, and easier to read:
 
 - Indent with 4 Spaces. 
 - Private fields are prefixed with an underscore (`_`)
 - Use camelCase for private fields, and PascalCase for classes, methods, & properties.
-- Otherwise, try to fit into exsisting code style (I've probably missed something here).
+- Try to fit into existing code style (I've probably missed something here).
